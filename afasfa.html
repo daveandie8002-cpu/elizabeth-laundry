@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elizabeth Laundry House | Lapu-Lapu City</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --service-green: #00704A;
+            --service-green-dark: #004d33;
+            --crisp-white: #FFFFFF;
+            --soft-charcoal: #333333;
+            --page-bg: #F2F5F4;
+            --border-color: #E0E0E0;
+            --alert-orange: #F57C00;
+            --star-gold: #FFC107;
+            
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--soft-charcoal);
+            background-color: var(--page-bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: var(--service-green);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: var(--crisp-white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-location { font-weight: 600; color: #D1E5DE; font-size: 0.9rem; }
+
+        /* --- PARALLAX & FADE TRANSITIONS --- */
+        .parallax-section {
+            position: relative;
+            width: 100%;
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            padding: 120px 20px;
+        }
+
+        .parallax-section::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: 0.35; 
+            z-index: 1;
+        }
+
+        /* Gradient mask to blend sections */
+        .parallax-section::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, 
+                var(--page-bg) 0%, 
+                rgba(242, 245, 244, 0.3) 15%, 
+                rgba(242, 245, 244, 0.3) 85%, 
+                var(--page-bg) 100%);
+            z-index: 2;
+        }
+
+        .section-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* --- FULL-BLEED HERO --- */
+        .hero-bleed {
+            position: relative;
+            width: 100vw;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            background-attachment: fixed;
+            color: var(--crisp-white);
+        }
+
+        .hero-bleed h1 { font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 2rem; text-shadow: 2px 2px 15px rgba(0,0,0,0.6); }
+
+        /* --- BUTTONS --- */
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-solid { background: var(--service-green); color: white; }
+        .btn-solid:hover { background: var(--service-green-dark); transform: scale(1.05); }
+        .btn-dark { background: var(--soft-charcoal); color: white; }
+        .btn-outline { background: transparent; border: 2px solid white; color: white; }
+        .btn-outline:hover { background: white; color: var(--soft-charcoal); }
+        .btn-orange { background: var(--alert-orange); color: white; }
+
+        .section-title { text-align: center; font-size: 2.8rem; margin-bottom: 4rem; color: var(--service-green); }
+
+        /* --- HOW WE CAN HELP YOU GRID --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            transition: 0.4s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+        }
+
+        .service-card:hover { transform: translateY(-10px); }
+        .service-img { width: 100%; height: 210px; object-fit: cover; }
+        .service-content { padding: 25px; flex-grow: 1; }
+        .service-content h3 { font-size: 1.15rem; margin-bottom: 12px; color: var(--service-green); }
+        .service-content p { font-size: 0.92rem; color: #444; font-weight: 500; }
+
+        /* Self-Service Faded State */
+        .service-card.coming-soon { filter: grayscale(1); opacity: 0.6; cursor: not-allowed; }
+        .service-card.coming-soon h3, .service-card.coming-soon p { color: #888; }
+        
+        .badge-soon {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: var(--alert-orange);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            z-index: 5;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* --- SECTION-SPECIFIC BACKGROUNDS --- */
+        #services::before { background-image: url('https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=1200&q=80'); }
+        /* Increase background photo visibility for the Services section specifically */
+        #services::after { background: linear-gradient(to bottom, var(--page-bg) 0%, rgba(242, 245, 244, 0.1) 15%, rgba(242, 245, 244, 0.1) 85%, var(--page-bg) 100%); }
+
+        #rates::before { background-image: url('https://images.unsplash.com/photo-1489274495744-85ff17588d5c?auto=format&fit=crop&w=1200&q=80'); }
+        #booking-pickup::before { background-image: url('https://images.unsplash.com/photo-1521566652839-697aa473761a?auto=format&fit=crop&w=1200&q=80'); }
+        #dropoff::before { background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80'); }
+        #reviews::before { background-image: url('https://images.unsplash.com/photo-1513161455079-7dc1de15ef3e?auto=format&fit=crop&w=1200&q=80'); }
+        #location::before { background-image: url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1200&q=80'); }
+
+        /* --- DATA & FORMS --- */
+        .data-card { background: rgba(255, 255, 255, 0.95); border-radius: 20px; padding: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); backdrop-filter: blur(10px); }
+        .rates-table-wrapper { max-width: 850px; margin: 0 auto; overflow: hidden; border-radius: 15px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 25px; text-align: left; border-bottom: 1px solid var(--border-color); }
+        th { background: var(--service-green); color: white; text-transform: uppercase; letter-spacing: 1px; }
+        .price { font-weight: 700; color: var(--service-green); text-align: right; }
+
+        .booking-form { display: grid; gap: 25px; grid-template-columns: 1fr 1fr; max-width: 850px; margin: 0 auto; }
+        .full-width { grid-column: 1 / -1; }
+        label { font-weight: 700; font-size: 0.85rem; color: var(--soft-charcoal); margin-bottom: 8px; display: block; text-transform: uppercase; }
+        input, select, textarea { width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #DDD; background: #FFF; font-family: inherit; }
+
+        .checkbox-group { display: flex; gap: 10px; flex-wrap: wrap; }
+        .checkbox-group input { display: none; }
+        .checkbox-group label { flex: 1; min-width: 80px; padding: 15px; text-align: center; background: #EEE; border-radius: 10px; cursor: pointer; font-weight: 700; transition: 0.3s; }
+        .checkbox-group input:checked + label { background: var(--service-green); color: white; box-shadow: 0 4px 10px rgba(0, 112, 74, 0.3); }
+
+        .quick-alert-card { background: #FFF3E0; border: 2px dashed var(--alert-orange); padding: 35px; border-radius: 20px; text-align: center; margin-bottom: 45px; }
+
+        /* --- REVIEWS --- */
+        .reviews-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; }
+        .review-form-container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); position: sticky; top: 120px; }
+        .star-rating { display: flex; gap: 8px; margin-bottom: 20px; font-size: 2rem; cursor: pointer; color: #EEE; }
+        .star-rating .star.active { color: var(--star-gold); text-shadow: 0 0 8px rgba(255, 193, 7, 0.3); }
+        .review-card { background: white; padding: 30px; border-radius: 15px; margin-bottom: 20px; border-left: 6px solid var(--service-green); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .follow-up-review { margin-left: 45px; border-left: 3px dashed var(--border-color); background: rgba(255,255,255,0.7); padding: 20px; border-radius: 12px; }
+
+        /* --- LOCATION --- */
+        .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .map-container { width: 100%; height: 400px; border-radius: 15px; overflow: hidden; border: 5px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        iframe { width: 100%; height: 100%; border: 0; }
+
+        @media (max-width: 992px) { .reviews-layout, .location-grid { grid-template-columns: 1fr; } .review-form-container { position: static; } .parallax-section::before { background-attachment: scroll; } }
+        @media (max-width: 768px) { .hero-bleed h1 { font-size: 2.2rem; } .booking-form { grid-template-columns: 1fr; } .parallax-section { padding: 80px 15px; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-title">Elizabeth Laundry House</div>
+        <div class="header-location">LAPU-LAPU CITY, CEBU</div>
+    </header>
+
+    <div class="hero-bleed">
+        <div class="section-content">
+            <h1>Premium Laundry Care, Seamlessly Delivered.</h1>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="#booking-pickup" class="btn btn-solid">Book a Pickup</a>
+                <a href="#dropoff" class="btn btn-dark">Schedule Drop-off</a>
+                <a href="#rates" class="btn btn-outline">View Rates</a>
+            </div>
+        </div>
+    </div>
+
+    <section id="services" class="parallax-section">
+        <div class="section-content">
+            <h2 class="section-title">How We Can Help You</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&w=600&q=80" class="service-img" alt="Staff folding white towels">
+                    <div class="service-content">
+                        <h3>Full Service Wash & Fold</h3>
+                        <p>Our professional staff expertly washes, dries, and folds your laundry to crisp perfection.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?auto=format&fit=crop&w=600&q=80" class="service-img" alt="Steam iron on fabric">
+                    <div class="service-content">
+                        <h3>Professional Ironing</h3>
+                        <p>Crisp, wrinkle-free button-downs and linens using high-end steam pressing equipment.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?auto=format&fit=crop&w=600&q=80" class="service-img" alt="Delivery staff handing over laundry bag">
+                    <div class="service-content">
+                        <h3>Door-to-Door Delivery</h3>
+                        <p>Enjoy effortless pickup and delivery from our friendly staff right at your doorstep.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1521566652839-697aa473761a?auto=format&fit=crop&w=600&q=80" class="service-img" alt="Customer at laundry counter">
+                    <div class="service-content">
+                        <h3>Scheduled Drop-off</h3>
+                        <p>A fast, professional check-in experience. No lines—just drop off your items and go.</p>
+                    </div>
+                </div>
+                <div class="service-card coming-soon">
+                    <div class="badge-soon">Coming Soon</div>
+                    <img src="https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?auto=format&fit=crop&w=600&q=80" class="service-img" alt="Modern stainless steel washers">
+                    <div class="service-content">
+                        <h3>Self-Service Laundry</h3>
+                        <p>We are currently focusing on full-service care, but self-service machines are coming in the future!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="rates" class="parallax-section">
+        <div class="section-content">
+            <h2 class="section-title">Service Rates</h2>
+            <div class="data-card rates-table-wrapper">
+                <table>
+                    <thead><tr><th>Category</th><th style="text-align: right;">Rate</th></tr></thead>
+                    <tbody>
+                        <tr><td>Regular Wear</td><td class="price">₱45 / kg</td></tr>
+                        <tr><td>Heavy Fabrics</td><td class="price">₱65 / kg</td></tr>
+                        <tr><td>Hard-to-Wash</td><td class="price">₱100 / kg</td></tr>
+                        <tr><td>Comforters (Small/Double)</td><td class="price">₱150 / pc</td></tr>
+                        <tr><td>Comforters (Queen/King)</td><td class="price">₱250 / pc</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="booking-pickup" class="parallax-section">
+        <div class="section-content">
+            <h2 class="section-title">Schedule a Pickup</h2>
+            <div class="data-card">
+                <form action="https://formspree.io/f/mgopraev" method="POST" class="booking-form js-form">
+                    <input type="hidden" name="Form-Type" value="Pickup Request">
+                    <div class="form-group"><label>Full Name</label><input type="text" name="Name" required placeholder="Juan Dela Cruz"></div>
+                    <div class="form-group"><label>Phone Number</label><input type="tel" name="Phone" required placeholder="09XX XXX XXXX"></div>
+                    <div class="form-group full-width"><label>Pick-up Address</label><input type="text" name="Address" required placeholder="Street, Barangay, City"></div>
+                    <button type="submit" class="btn btn-solid full-width">Confirm Pickup Order</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="dropoff" class="parallax-section">
+        <div class="section-content">
+            <h2 class="section-title">Drop-off Hub</h2>
+            <div class="quick-alert-card" style="max-width: 600px; margin: 0 auto 50px auto;">
+                <h3 style="color: #E65100; margin-bottom: 10px;">🚗 Heading here right now?</h3>
+                <form action="https://formspree.io/f/mgopraev" method="POST" class="js-form" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <input type="hidden" name="Alert" value="URGENT: Customer En Route!">
+                    <input type="text" name="Name" placeholder="Your Name" style="max-width: 200px;">
+                    <button type="submit" class="btn btn-orange">I'm on my way!</button>
+                </form>
+            </div>
+            <div class="data-card">
+                <form action="https://formspree.io/f/mgopraev" method="POST" class="booking-form js-form">
+                    <input type="hidden" name="Form-Type" value="Full Drop-off Notification">
+                    <div class="form-group"><label>Name</label><input type="text" name="Name" required></div>
+                    <div class="form-group"><label>Phone</label><input type="tel" name="Phone" required></div>
+                    <div class="form-group full-width"><label>Expected Arrival</label><input type="datetime-local" name="Arrival" required></div>
+                    <div class="form-group full-width">
+                        <label>Services Required</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="w" name="Service" value="Wash"><label for="w">Wash</label>
+                            <input type="checkbox" id="d" name="Service" value="Dry"><label for="d">Dry</label>
+                            <input type="checkbox" id="f" name="Service" value="Fold"><label for="f">Fold</label>
+                            <input type="checkbox" id="i" name="Service" value="Iron"><label for="i">Iron</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-dark full-width">Notify Staff</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="parallax-section">
+        <div class="section-content">
+            <h2 class="section-title">Verified Reviews</h2>
+            <div class="reviews-layout">
+                <div class="review-form-container">
+                    <h3 style="margin-bottom: 20px;">Leave a Review</h3>
+                    <form id="review-form" action="https://formspree.io/f/mgopraev" method="POST">
+                        <div class="star-rating" id="star-input">
+                            <span class="star" data-value="1">★</span><span class="star" data-value="2">★</span><span class="star" data-value="3">★</span><span class="star" data-value="4">★</span><span class="star" data-value="5">★</span>
+                        </div>
+                        <input type="hidden" id="rating-value" name="Rating" value="0">
+                        <div class="form-group"><label>Name</label><input type="text" name="Name" id="rev-name" required></div>
+                        <div class="form-group"><label>Feedback</label><textarea name="Feedback" id="rev-text" rows="4" required></textarea></div>
+                        <div class="form-group" style="display:flex; gap:12px; align-items:center;">
+                            <input type="checkbox" id="is-follow" name="Is-Followup" style="width:18px;height:18px;"><label style="margin:0;">This is a follow-up</label>
+                        </div>
+                        <button type="submit" class="btn btn-solid" style="width:100%;">Submit Review</button>
+                    </form>
+                </div>
+                <div class="reviews-feed" id="reviews-feed"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="location" class="parallax-section">
+        <div class="section-content">
+            <h2 class="section-title">Visit Our Studio</h2>
+            <div class="data-card location-grid">
+                <div>
+                    <h3 style="color: var(--service-green); margin-bottom: 15px;">Elizabeth Laundry House</h3>
+                    <p style="font-size: 1.1rem; margin-bottom: 20px;">Mantawe Road, Mactan,<br>Lapu-Lapu City, Cebu 6015</p>
+                    <p><strong>Open Daily:</strong> 8:00 AM - 7:00 PM</p>
+                    <a href="https://maps.google.com/?q=10.31319,123.95364" target="_blank" class="btn btn-dark" style="margin-top: 25px;">Get Directions</a>
+                </div>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3925.3344686958434!2d123.95145137503468!3d10.313195389808381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTDCsDE4JzQ3LjUiTiAxMjPCsDU3JzA0LjUiRQ!5e0!3m2!1sen!2sph!4v1712310000000!5m2!1sen!2sph" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: var(--soft-charcoal); color: white; text-align: center; padding: 40px 20px;">
+        <p>© 2026 Elizabeth Laundry House. Premium Care for Mactan.</p>
+    </footer>
+
+    <script>
+        const adminMode = false;
+        let reviewsData = [
+            { id: 1, name: "Maria Santos", rating: 5, text: "Truly premium service! My clothes were folded with such care.", date: "2026-03-28", approved: true, isFollow: false }
+        ];
+
+        // Star logic
+        document.querySelectorAll('.star').forEach(s => {
+            s.addEventListener('click', () => {
+                const val = s.dataset.value;
+                document.getElementById('rating-value').value = val;
+                document.querySelectorAll('.star').forEach(st => st.classList.toggle('active', st.dataset.value <= val));
+            });
+        });
+
+        // Form Submission & Reset
+        document.querySelectorAll('.js-form, #review-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const btn = form.querySelector('button[type="submit"]');
+                const originalText = btn.innerText;
+
+                if(form.id === 'review-form') {
+                    const rating = parseInt(document.getElementById('rating-value').value);
+                    if(rating <= 2) {
+                        alert("Thank you. We've received your private feedback and will contact you shortly.");
+                    } else {
+                        const newRev = { id: Date.now(), name: document.getElementById('rev-name').value, rating, text: document.getElementById('rev-text').value, date: "Today", approved: !adminMode, isFollow: document.getElementById('is-follow').checked };
+                        reviewsData.unshift(newRev);
+                        renderReviews();
+                    }
+                }
+
+                btn.innerText = "Sending...";
+                btn.disabled = true;
+
+                fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                }).then(() => {
+                    btn.innerText = "Success! ✅";
+                    btn.style.background = "#2E7D32";
+                    form.reset();
+                    document.querySelectorAll('.star').forEach(st => st.classList.remove('active'));
+                    setTimeout(() => {
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+                        btn.style.background = "";
+                    }, 4000);
+                });
+            });
+        });
+
+        function renderReviews() {
+            const feed = document.getElementById('reviews-feed');
+            feed.innerHTML = "";
+            reviewsData.filter(r => r.approved).forEach(r => {
+                const div = document.createElement('div');
+                div.className = `review-card ${r.isFollow ? 'follow-up-review' : ''}`;
+                div.innerHTML = `<strong>${r.name}</strong> <span class="verified-badge">Verified</span><div style="color:var(--star-gold);">${"★".repeat(r.rating)}</div><p>${r.text}</p><small>${r.date}</small>`;
+                feed.appendChild(div);
+            });
+        }
+        renderReviews();
+    </script>
+</body>
+</html>
